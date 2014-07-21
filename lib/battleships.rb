@@ -1,11 +1,10 @@
 require 'sinatra/base'
 
 class Battleships < Sinatra::Base
-	set :views, '../views/'
+	set :views, settings.root + '/../views/'
   
   get '/' do
   	erb :index
-    'Hello Battleships!'
   end
 
   # start the server if ruby file executed directly
