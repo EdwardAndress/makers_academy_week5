@@ -10,11 +10,3 @@ class Battleships < Sinatra::Base
   get '/name' do
   	erb :name
   end
-
-  get '/welcome' do
-  	erb :welcome_to_battleships
-  end
-
-  # start the server if ruby file executed directly
-  run! if app_file == $0
-end
