@@ -217,3 +217,12 @@ end
 Then /^show me the page$/ do
   save_and_open_page
 end
+
+When(/^I fill in the name field$/) do
+  fill_in('First Name', :with => 'Eddie')
+end
+
+When(/^press enter$/) do
+  click_button('Submit')
+end
+
