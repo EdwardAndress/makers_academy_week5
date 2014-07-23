@@ -36,11 +36,7 @@ require File.expand_path(File.join(File.dirname(__FILE__), "..", "support", "pat
 #   end
 # end
 
-# When /^(?:|I )fill in "([^\"]*)" with "([^\"]*)"(?: within "([^\"]*)")?$/ do |field, value, selector|
-#   with_scope(selector) do
-#     fill_in(field, :with => value)
-#   end
-# end
+
 
 # When /^(?:|I )fill in "([^\"]*)" for "([^\"]*)"(?: within "([^\"]*)")?$/ do |value, field, selector|
 #   with_scope(selector) do

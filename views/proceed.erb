@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Proceed PAge</title>
+</head>
+<body>
+<%name1=session[:player1].name%>
+
+
+Let's start the game <%=name1%>
+
+You have <%=session[:player1].ships_to_deploy.count%> ships to deploy. 
+
+Would you like to deploy a boat?
+	<button type = "button">Yes</button>
+
+
+</body>
+</html>

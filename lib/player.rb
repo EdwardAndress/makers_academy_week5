@@ -12,4 +12,8 @@ class Player
 		opponent_board.grid[at_coordinate].shoot!
 	end
 
+	def name
+		@name
+	end
+
 end
