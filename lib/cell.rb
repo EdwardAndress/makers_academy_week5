@@ -2,12 +2,13 @@ require './lib/water.rb'
 
 class Cell
 
-	def initialize(content)
+	def initialize(content, id)
 		@content = content
 		@shot_at = false
+		@id = id
 	end
 
-	attr_accessor :content
+	attr_accessor :content, :id
 
 	def shot_at?
 		@shot_at
@@ -16,6 +17,10 @@ class Cell
 	def shoot!
 		@shot_at = true
 		@content.hit!	
+	end
+
+	def obj_id
+		return id.class
 	end
 
 	def status

@@ -9,13 +9,13 @@ require './lib/coordinates'
 
 class Battleships < Sinatra::Base
 	set :views, settings.root + '/../views/'
-  set :session_secret, "My session secret"
 
-  enable :sessions
+  use Rack::Session::Cookie, :key => 'rack.session',
+                           :path => '/',
+                           :secret => 'your_secret'
 
   get '/' do
   	erb :index
-  
   end
 
   get '/name' do
@@ -23,11 +23,21 @@ class Battleships < Sinatra::Base
   end
 
   post '/hello' do
-  	session[:player1] = Player.new(name: params[:player1name], board: Board.new)
+    board = Board.new
+  	me = Player.new(name: params[:player1name], board: board)
+    session[:player1]= me
+    puts me.object_id
   	erb :hello
   end
 
   get '/proceed' do 
+    erb :proceed
+  end
+
+  post '/shoot' do
+    object_id = params["object_id"]
+    puts object_id.inspect
+    session[:player1].board.grid.values.find {|cell| cell.id == object_id}
     erb :proceed
   end
 

@@ -27,11 +27,11 @@ class Board
 	private
 
 	def rows_of_cells
-		grid.values.map{|cell| cell.status}
+		grid.values.map{|cell| cell}
 	end
 	
 	def create_new_grid_with(content)
-		("A".."J").map { |letter| (1..10).map { |number| {"#{letter}#{number}" => Cell.new(content) } } }.flatten.inject(&:merge)
+		("A".."J").map { |letter| (1..10).map { |number| {"#{letter}#{number}" => Cell.new(content, "#{letter}#{number}") } } }.flatten.inject(&:merge)
 	end
 
 end
