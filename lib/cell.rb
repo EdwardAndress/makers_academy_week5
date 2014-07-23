@@ -1,3 +1,5 @@
+require './lib/water.rb'
+
 class Cell
 
 	def initialize(content)
@@ -19,7 +21,7 @@ class Cell
 	def status
 		return 'X' if part_of_damaged_ship_here?
 		return 'S' if part_of_ship_here?
-		return ' ' if water_here? && !shot_at?
+		return '~' if water_here? && !shot_at?
 		return 'O' if water_here?
 	end
 

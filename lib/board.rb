@@ -2,7 +2,7 @@ require './lib/cell'
 
 class Board
 
-	def initialize(content: :water)
+	def initialize(content: Water.new)
 		@grid = create_new_grid_with(content)
 	end
 

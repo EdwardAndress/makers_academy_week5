@@ -2,10 +2,15 @@ require 'sinatra/base'
 require './lib/board.rb'
 require './lib/player.rb'
 require './lib/ship.rb'
+require './lib/cell.rb'
+require './lib/water.rb'
+require './lib/coordinates'
+
 
 class Battleships < Sinatra::Base
 	set :views, settings.root + '/../views/'
-  
+  set :session_secret, "My session secret"
+
   enable :sessions
 
   get '/' do
@@ -19,7 +24,6 @@ class Battleships < Sinatra::Base
 
   post '/hello' do
   	session[:player1] = Player.new(name: params[:player1name], board: Board.new)
-   # session[:player2] = Player.new(name: params[:player2name], board: Board.new)
   	erb :hello
   end
 

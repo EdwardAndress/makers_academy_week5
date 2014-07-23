@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Proceed PAge</title>
+	<title>Proceed Page</title>
 </head>
 <body>
 <%name1=session[:player1].name%>
@@ -10,9 +10,16 @@
 Let's start the game <%=name1%>
 
 You have <%=session[:player1].ships_to_deploy.count%> ships to deploy. 
-
-Would you like to deploy a boat?
-	<button type = "button">Yes</button>
+<% grid = session[:player1].board.render_display %>
+<table>
+	<%grid.each do |row|%>
+		<tr>
+		<%row.each do |column|%>
+			<td><%=column %></td>
+		<%end%>
+		</tr>
+	<%end%>
+</table>
 
 
 </body>
