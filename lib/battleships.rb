@@ -44,9 +44,23 @@ class Battleships < Sinatra::Base
   end
 
   post '/place_boat_part' do
-    ship = params[ship]
-    cell_key = params["cell_key"]
-    session[:player1].board.grid[cell_key].content = session[:player1].ships_to_deploy.pop
+    ship = session[:player1].ships_to_deploy.last
+    orientation = params["orientation"]
+    
+    cell_key = params["cell_key"].split(//,2)
+    row = cell_key[0]
+    column = cell_key[1]
+
+    coordinates ||= []
+
+    ship.remaining_hits.times do
+      coordinates << [row, column]
+      orientation == "horizontal" ? column = column.next : row = row.next
+    end
+
+    p coordinates.inspect
+
+    # session[:player1].board.grid[cell_key].content = session[:player1].ships_to_deploy.pop
     erb :place_boats
   end
 

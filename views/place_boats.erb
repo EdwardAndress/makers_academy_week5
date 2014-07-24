@@ -20,6 +20,7 @@ Where would you like to deploy <%=ship.class%>?
 		<form action='/place_boat_part' method="post">
 			<td><input type="hidden" name = "cell_key" value = "<%= key %>"></td>
 			<td><input type="hidden" name = "ship" value = <%= ship %> </td>
+			<td><input type="hidden" name = "orientation" value = <%= "horizontal" %> </td>
 			<td><button type="submit"><%= v.content.class %></button></td>
 			</form>
 	<%end%> 
