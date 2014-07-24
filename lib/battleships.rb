@@ -26,22 +26,28 @@ class Battleships < Sinatra::Base
     board = Board.new
   	me = Player.new(name: params[:player1name], board: board)
     session[:player1]= me
-p "!@£$%^&*"
-    p me.inspect
-
-    puts me.object_id
   	erb :hello
   end
 
-  get '/proceed' do 
-    erb :proceed
+  get '/place_boats' do 
+    erb :place_boats
+  end
+
+  get '/shoot_boats' do 
+    erb :shoot_boats
   end
 
   post '/shoot' do
     cell_key = params["cell_key"]
-    puts object_id.inspect
     session[:player1].board.grid[cell_key].shoot!
-    erb :proceed
+    erb :shoot_boats
+  end
+
+  post '/place_boat_part' do
+    ship = params[ship]
+    cell_key = params["cell_key"]
+    session[:player1].board.grid[cell_key].content = session[:player1].ships_to_deploy.pop
+    erb :place_boats
   end
 
   # start the server if ruby file executed directly

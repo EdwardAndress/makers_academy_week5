@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Place Boats Page</title>
+</head>
+<body>
+
+Let's start the game <%=session[:player1].name%>
+You have <%=session[:player1].ships_to_deploy.count%> ships to deploy. 
+<% ship = session[:player1].ships_to_deploy.last %>
+Where would you like to deploy <%=ship.class%>?
+
+<table>
+
+
+	<% session[:player1].board.grid.each_slice(10) do |slice|%>
+			<tr>
+
+	<% slice.each do |key, v| %>
+		<form action='/place_boat_part' method="post">
+			<td><input type="hidden" name = "cell_key" value = "<%= key %>"></td>
+			<td><input type="hidden" name = "ship" value = <%= ship %> </td>
+			<td><button type="submit"><%= v.content.class %></button></td>
+			</form>
+	<%end%> 
+			</tr>
+
+	<%end%> 
+
+
+</table>
+
+	
+	 
+
+
+</body>
+</html>

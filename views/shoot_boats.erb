@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Shoot Boats Page</title>
+</head>
+<body>
+Let's shoot some boats <%=session[:player1].name%>
+<table>
+
+
+	<% session[:player1].board.grid.each_slice(10) do |slice|%>
+			<tr>
+
+	<% slice.each do |key, v| %>
+		<form action='/shoot' method="post">
+			<td><input type="hidden" name = "cell_key" value = "<%= key %>"></td>
+			<td><button type="submit"><%= v.status %></button></td>
+			</form>
+	<%end%> 
+			</tr>
+
+	<%end%> 
+
+
+</table>
+
+	
+	 
+
+
+</body>
+</html>
