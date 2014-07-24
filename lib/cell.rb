@@ -2,10 +2,10 @@ require './lib/water.rb'
 
 class Cell
 
-	def initialize(content, id)
+	def initialize(content, letter, number)
 		@content = content
 		@shot_at = false
-		@id = id
+		@id = letter.concat(number)
 	end
 
 	attr_accessor :content, :id
@@ -20,7 +20,7 @@ class Cell
 	end
 
 	def obj_id
-		return id.class
+		return @id
 	end
 
 	def status

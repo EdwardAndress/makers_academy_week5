@@ -2,7 +2,7 @@ require './lib/cell'
 
 class Board
 
-	def initialize(content: Water.new)
+	def initialize(content: :water)
 		@grid = create_new_grid_with(content)
 	end
 
@@ -31,7 +31,7 @@ class Board
 	end
 	
 	def create_new_grid_with(content)
-		("A".."J").map { |letter| (1..10).map { |number| {"#{letter}#{number}" => Cell.new(content, "#{letter}#{number}") } } }.flatten.inject(&:merge)
+		("A".."J").map { |letter| (1..10).map { |number| {"#{letter}#{number}" => Cell.new(content, letter, number) } } }.flatten.inject(&:merge)
 	end
 
 end

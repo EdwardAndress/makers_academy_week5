@@ -4,7 +4,7 @@
 	<title>Proceed Page</title>
 </head>
 <body>
-<%= session[:player1].board.grid %>
+<% session[:player1].board.grid %>
 <%name1=session[:player1].name%>
 
 
@@ -18,8 +18,8 @@ You have <%=session[:player1].ships_to_deploy.count%> ships to deploy.
 		<tr>
 		<%row.each do |cell|%>
 		<form action='/shoot' method="post">
-			<td><input type="hidden" name = "object_id" value = "<%= cell.obj_id %>"></td>
-			<td><button type="submit"><%=cell.obj_id%></button></td>
+			<td><input type="hidden" name = "object_id" value = "<%= cell.id %>"></td>
+			<td><button type="submit"><%=cell.id%></button></td>
 			</form>
 		<%end%>
 		</tr>
