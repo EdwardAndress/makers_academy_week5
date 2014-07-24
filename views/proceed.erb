@@ -21,8 +21,8 @@ You have <%=session[:player1].ships_to_deploy.count%> ships to deploy.
 
 	<% slice.each do |key, v| %>
 		<form action='/shoot' method="post">
-			<td><input type="hidden" name = "object_id" value = "<%= key %>"></td>
-			<td><button type="submit"><%=key%></button></td>
+			<td><input type="hidden" name = "cell_key" value = "<%= key %>"></td>
+			<td><button type="submit"><%= v.status %></button></td>
 			</form>
 	<%end%> 
 			</tr>

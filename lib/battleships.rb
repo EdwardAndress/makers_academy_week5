@@ -38,9 +38,9 @@ p "!@£$%^&*"
   end
 
   post '/shoot' do
-    object_id = params["object_id"]
+    cell_key = params["cell_key"]
     puts object_id.inspect
-    session[:player1].board.grid.values.find {|cell| cell.id == object_id}
+    session[:player1].board.grid[cell_key].shoot!
     erb :proceed
   end
 
