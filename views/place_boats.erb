@@ -10,28 +10,42 @@ You have <%=session[:player1].ships_to_deploy.count%> ships to deploy.
 <% ship = session[:player1].ships_to_deploy.last %>
 Where would you like to deploy <%=ship.class%>?
 
-<table>
+<form action='/place_boat_part' method="post">
 
+	<input type="hidden" name = "ship" value= "<%= ship %>">
 
-	<% session[:player1].board.grid.each_slice(10) do |slice|%>
-			<tr>
+	<table>
+		<% session[:player1].board.grid.each_slice(10) do |slice|%>
+				<tr>
 
-	<% slice.each do |key, v| %>
-		<form action='/place_boat_part' method="post">
-			<td><input type="hidden" name = "cell_key" value = "<%= key %>"></td>
-			<td><input type="hidden" name = "ship" value = <%= ship %> </td>
-			<td><input type="hidden" name = "orientation" value = <%= "horizontal" %> </td>
-			<td><button type="submit"><%= v.content.class %></button></td>
+		<% slice.each do |key, v| %>
+			
+				<td>
+					<% if v.content.class == Water %>
+						<input type="submit" name = "cell_key" value = "<%= key %>">
+						<%= v.content.class %>
+					<% else %>
+						<%= v.content.class %>
+					<% end %>
+				</td>
 			</form>
-	<%end%> 
-			</tr>
+		<%end%> 
+				</tr>
 
-	<%end%> 
+		<%end%> 
 
 
-</table>
+	</table>
+
+	Please choose the direction you would like to deploy <%=ship.class%>.
+	<select name='orientation'>
+		<option value="horizontal">Horizontal</option>
+		<option value="vertical">Vertical</option>
+
+	</select>
 
 	
+</form>
 	 
 
 
