@@ -14,17 +14,26 @@ You have <%=session[:player1].ships_to_deploy.count%> ships to deploy.
 <% grid = session[:player1].board.render_display %>
 
 <table>
-	<%grid.each do |row|%>
-		<tr>
-		<%row.each do |cell|%>
+
+
+	<% session[:player1].board.grid.each_slice(10) do |slice|%>
+			<tr>
+
+	<% slice.each do |key, v| %>
 		<form action='/shoot' method="post">
-			<td><input type="hidden" name = "object_id" value = "<%= cell.id %>"></td>
-			<td><button type="submit"><%=cell.id%></button></td>
+			<td><input type="hidden" name = "object_id" value = "<%= key %>"></td>
+			<td><button type="submit"><%=key%></button></td>
 			</form>
-		<%end%>
-		</tr>
-	<%end%>
+	<%end%> 
+			</tr>
+
+	<%end%> 
+
+
 </table>
+
+	
+	 
 
 
 </body>

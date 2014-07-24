@@ -5,7 +5,7 @@ class Cell
 	def initialize(content, letter, number)
 		@content = content
 		@shot_at = false
-		@id = letter.concat(number)
+		@id = letter 
 	end
 
 	attr_accessor :content, :id

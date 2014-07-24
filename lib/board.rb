@@ -31,7 +31,9 @@ class Board
 	end
 	
 	def create_new_grid_with(content)
+
 		("A".."J").map { |letter| (1..10).map { |number| {"#{letter}#{number}" => Cell.new(content, letter, number) } } }.flatten.inject(&:merge)
 	end
 
 end
+

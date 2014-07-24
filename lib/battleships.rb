@@ -26,6 +26,9 @@ class Battleships < Sinatra::Base
     board = Board.new
   	me = Player.new(name: params[:player1name], board: board)
     session[:player1]= me
+p "!@£$%^&*"
+    p me.inspect
+
     puts me.object_id
   	erb :hello
   end
