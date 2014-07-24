@@ -61,12 +61,13 @@ class Battleships < Sinatra::Base
     p coordinates.inspect
 
     test_if = Coordinates.new(coordinates)
-    p test_if.valid?
-
-
+    if test_if.valid?
+      coordinates.each do |cell|
+        session[:player1].board.grid[cell].content = ship
+      end
+      session[:player1].ships_to_deploy.pop
+    end
     
-
-    # session[:player1].board.grid[cell_key].content = session[:player1].ships_to_deploy.pop
     erb :place_boats
   end
 
