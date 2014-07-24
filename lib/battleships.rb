@@ -53,17 +53,18 @@ class Battleships < Sinatra::Base
     column = cell_key[1]
 
     coordinates ||= []
+    already_a_boat = nil
 
     ship.remaining_hits.times do
       coordinates << (row + column.to_s)
       orientation == "horizontal" ? column = column.next : row = row.next
     end
 
-    already_a_boat = coordinates.any?{|co| session[:player1].board.grid[co].part_of_ship_here?}
-
     test_if = Coordinates.new(coordinates)
 
-    if test_if.valid? && already_a_boat == false
+    already_a_boat = coordinates.any?{|co| session[:player1].board.grid[co].part_of_ship_here?} if test_if.valid? 
+
+    if already_a_boat == false
       coordinates.each do |cell|
         session[:player1].board.grid[cell].content = ship
       end
