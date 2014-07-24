@@ -59,15 +59,21 @@ class Battleships < Sinatra::Base
       orientation == "horizontal" ? column = column.next : row = row.next
     end
 
+    already_a_boat = coordinates.any?{|co| session[:player1].board.grid[co].part_of_ship_here?}
+
     test_if = Coordinates.new(coordinates)
-    if test_if.valid?
+
+    if test_if.valid? && already_a_boat == false
       coordinates.each do |cell|
         session[:player1].board.grid[cell].content = ship
       end
       session[:player1].ships_to_deploy.pop
     end
-
-    erb :place_boats
+    if !session[:player1].ships_to_deploy.empty?
+      erb :place_boats
+    else
+      erb :shoot_boats
+    end
   end
 
   # start the server if ruby file executed directly
