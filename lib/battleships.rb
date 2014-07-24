@@ -54,11 +54,17 @@ class Battleships < Sinatra::Base
     coordinates ||= []
 
     ship.remaining_hits.times do
-      coordinates << [row, column]
+      coordinates << (row + column.to_s)
       orientation == "horizontal" ? column = column.next : row = row.next
     end
 
     p coordinates.inspect
+
+    test_if = Coordinates.new(coordinates)
+    p test_if.valid?
+
+
+    
 
     # session[:player1].board.grid[cell_key].content = session[:player1].ships_to_deploy.pop
     erb :place_boats
