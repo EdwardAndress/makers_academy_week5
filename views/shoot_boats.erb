@@ -4,29 +4,24 @@
 	<title>Shoot Boats Page</title>
 </head>
 <body>
-Let's shoot some boats <%=session[:player1].name%>
-<table>
-
-
-	<% session[:player1].board.grid.each_slice(10) do |slice|%>
+	Let's shoot some boats <%=session[:player1].name%>
+	<table>
+		<% session[:player1].board.grid.each_slice(10) do |slice|%>
 			<tr>
-
-	<% slice.each do |key, v| %>
-		<form action='/shoot' method="post">
-			<td><input type="hidden" name = "cell_key" value = "<%= key %>"></td>
-			<td><button type="submit"><%= v.status %></button></td>
-			</form>
-	<%end%> 
+			<% slice.each do |key, v| %>
+				<td>
+				<% if !v.shot_at? %>
+					<form action='/shoot' method="post">
+					<input type="hidden" name = "cell_key" value = "<%= key %>">
+					<button type="submit"><%= v.status %></button></td></form>
+				<% else %>
+					<%= v.status %>
+				<% end %>
+				</td>
+			<%end%>
 			</tr>
-
-	<%end%> 
-
-
-</table>
-
-	
-	 
-
+		<%end%> 
+	</table>
 
 </body>
 </html>
