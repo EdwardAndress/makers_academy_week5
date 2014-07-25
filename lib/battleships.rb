@@ -20,21 +20,33 @@ class Battleships < Sinatra::Base
 
   get '/' do
     puts session[:player1]
-    puts GAME
+    puts GAME.players
   	erb :index
   end
 
   get '/name' do
-  	erb :name
+    erb :name
   end
 
   post '/name' do 
     session[:player1]=params[:name]
     board = Board.new
-    me = Player.new(name: params[:player1name], board: board)
-    "Lets wait for the next player"
+    GAME.add Player.new(name: session[:player1], board: board)
+    redirect to('/waiting_to_start')
   end
 
+  get '/restart' do 
+    GAME.restart
+    redirect to('/')
+  end
+
+  get '/waiting_to_start' do 
+      if GAME.start?
+      "Lets go!"
+    else
+     "Lets wait for another player to join."
+    end
+  end
   # post '/hello' do
   
   # 	erb :name

@@ -14,6 +14,14 @@ class Game
 		"#{players.join('and')} are currently playing battleships"
 	end
 
+	def start?
+		@players.count == 2
+	end
+
+	def restart
+		@players = []
+	end
+
 
 	
 
