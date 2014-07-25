@@ -22,12 +22,28 @@ class Battleships < Sinatra::Base
   	erb :name
   end
 
-  post '/hello' do
+  post '/name' do 
     board = Board.new
-  	me = Player.new(name: params[:player1name], board: board)
+    me = Player.new(name: params[:player1name], board: board)
     session[:player1]= me
-  	erb :hello
+    puts params[:player1name]
+    "Lets wait for the second player"
+   
   end
+
+  # post '/hello' do
+  
+  # 	erb :name
+  # end
+
+  # get '/new_game' do
+  #   erb :new_game
+  # end
+
+  # post '/hello' do
+
+ 
+  # end
 
   get '/place_boats' do 
     erb :place_boats
