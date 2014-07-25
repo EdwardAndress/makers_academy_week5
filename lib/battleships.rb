@@ -5,6 +5,7 @@ require './lib/ship.rb'
 require './lib/cell.rb'
 require './lib/water.rb'
 require './lib/coordinates'
+require './lib/game.rb'
 
 
 class Battleships < Sinatra::Base
@@ -14,7 +15,12 @@ class Battleships < Sinatra::Base
                            :path => '/',
                            :secret => 'your_secret'
 
+  enable :sessions
+  GAME = Game.new
+
   get '/' do
+    puts session[:player1]
+    puts GAME
   	erb :index
   end
 
@@ -23,12 +29,10 @@ class Battleships < Sinatra::Base
   end
 
   post '/name' do 
+    session[:player1]=params[:name]
     board = Board.new
     me = Player.new(name: params[:player1name], board: board)
-    session[:player1]= me
-    puts params[:player1name]
-    "Lets wait for the second player"
-   
+    "Lets wait for the next player"
   end
 
   # post '/hello' do
@@ -55,12 +59,12 @@ class Battleships < Sinatra::Base
 
   post '/shoot' do
     cell_key = params["cell_key"]
-    session[:player1].board.grid[cell_key].shoot!
+    session[:player].board.grid[cell_key].shoot!
     erb :shoot_boats
   end
 
   post '/place_boat_part' do
-    ship = session[:player1].ships_to_deploy.last
+    ship = session[:player].ships_to_deploy.last
     orientation = params["orientation"]
     p params["orientation"].inspect
     
@@ -78,15 +82,15 @@ class Battleships < Sinatra::Base
 
     test_if = Coordinates.new(coordinates)
 
-    already_a_boat = coordinates.any?{|co| session[:player1].board.grid[co].part_of_ship_here?} if test_if.valid? 
+    already_a_boat = coordinates.any?{|co| session[:player].board.grid[co].part_of_ship_here?} if test_if.valid? 
 
     if already_a_boat == false
       coordinates.each do |cell|
-        session[:player1].board.grid[cell].content = ship
+        session[:player].board.grid[cell].content = ship
       end
-      session[:player1].ships_to_deploy.pop
+      session[:player].ships_to_deploy.pop
     end
-    if !session[:player1].ships_to_deploy.empty?
+    if !session[:player].ships_to_deploy.empty?
       erb :place_boats
     else
       erb :shoot_boats

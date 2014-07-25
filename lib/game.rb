@@ -1,14 +1,12 @@
-require './files'
-
 class Game
 
-	def initialize(
+	attr_reader :players
+
+	def initialize
 		@players = []
 	end
 
-	attr_reader :player_one, :player_two
-
-	def add_player
+	def add(player)
 		@players << player
 	end
 

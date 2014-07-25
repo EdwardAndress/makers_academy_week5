@@ -4,9 +4,9 @@
 	<title>Shoot Boats Page</title>
 </head>
 <body>
-	Let's shoot some boats <%=session[:player1].name%>
+	Let's shoot some boats <%=session[:player].name%>
 	<table>
-		<% session[:player1].board.grid.each_slice(10) do |slice|%>
+		<% session[:player].board.grid.each_slice(10) do |slice|%>
 			<tr>
 			<% slice.each do |key, v| %>
 				<td>
