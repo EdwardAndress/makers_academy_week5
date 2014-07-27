@@ -34,7 +34,7 @@ class Battleships < Sinatra::Base
     if GAME.start?
       redirect to ('/place_boats')
     else
-      erb :waiting_to_start
+      redirect to ('/waiting_to_start')
     end
   end
 
@@ -105,10 +105,13 @@ class Battleships < Sinatra::Base
   end
 
   get '/wait_for_opponent_to_place_boats' do 
+    @player = GAME.return(session[:player])
     @opponent = GAME.return_opponent(session[:player])
     if @opponent.ships_to_deploy.empty?
-      redirect to ('/shoot_boats')
+      redirect to ('/wait_for_opponent_to_shoot')
     else
+      @opponent.turn_counter += 1 if @opponent.turn_counter < 1
+      puts @opponent.turn_counter
       erb :wait_for_opponent_to_place_boats
     end
   end
@@ -124,7 +127,20 @@ class Battleships < Sinatra::Base
     @opponent = GAME.return_opponent(session[:player])
     cell_key = params["cell_key"]
     @opponent.board.grid[cell_key].shoot!
-    erb :shoot_boats
+    @player.take_turn
+    puts @player.turn_counter
+    puts @opponent.turn_counter
+    redirect to ('/wait_for_opponent_to_shoot')
+  end
+
+  get '/wait_for_opponent_to_shoot' do 
+    @player = GAME.return(session[:player])
+    @opponent = GAME.return_opponent(session[:player])
+    if @player.turn_counter < @opponent.turn_counter
+      redirect to ('/shoot_boats')
+    else
+      erb :wait_for_opponent_to_shoot
+    end
   end
 
   # start the server if ruby file executed directly

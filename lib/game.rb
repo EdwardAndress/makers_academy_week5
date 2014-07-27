@@ -29,6 +29,7 @@ class Game
 	def return_opponent(player_name)
 		@players.find{|opponent| opponent.name != player_name}
 	end
+
 	
 
 # 	def deploy_ships_for(player)
