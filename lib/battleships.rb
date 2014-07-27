@@ -107,10 +107,19 @@ class Battleships < Sinatra::Base
       end
       @player.ships_to_deploy.pop
     end
-    if !@player.ships_to_deploy.empty?
-      erb :place_boats
+    if @player.ships_to_deploy.empty?
+      redirect to ('/wait_for_opponent_to_place_boats')
     else
-      erb :shoot_boats
+      erb :place_boats
+    end
+  end
+
+  get '/wait_for_opponent_to_place_boats' do 
+    @opponent = GAME.return_opponent(session[:player])
+    if @opponent.ships_to_deploy.empty?
+      redirect to ('/shoot')
+    else
+      erb :wait_for_opponent_to_place_boats
     end
   end
 
