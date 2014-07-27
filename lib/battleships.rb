@@ -69,16 +69,6 @@ class Battleships < Sinatra::Base
     erb :place_boats
   end
 
-  get '/shoot_boats' do 
-    erb :shoot_boats
-  end
-
-  post '/shoot' do
-    cell_key = params["cell_key"]
-    session[:player].board.grid[cell_key].shoot!
-    erb :shoot_boats
-  end
-
   post '/place_boat_part' do
     @player = GAME.return(session[:player])
     @ship = @player.ships_to_deploy.last
@@ -117,10 +107,24 @@ class Battleships < Sinatra::Base
   get '/wait_for_opponent_to_place_boats' do 
     @opponent = GAME.return_opponent(session[:player])
     if @opponent.ships_to_deploy.empty?
-      redirect to ('/shoot')
+      redirect to ('/shoot_boats')
     else
       erb :wait_for_opponent_to_place_boats
     end
+  end
+
+   get '/shoot_boats' do 
+    @player = GAME.return(session[:player])
+    @opponent = GAME.return_opponent(session[:player])
+    erb :shoot_boats
+  end
+
+  post '/shoot' do
+    @player = GAME.return(session[:player])
+    @opponent = GAME.return_opponent(session[:player])
+    cell_key = params["cell_key"]
+    @opponent.board.grid[cell_key].shoot!
+    erb :shoot_boats
   end
 
   # start the server if ruby file executed directly

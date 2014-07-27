@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Shoot Boats Page</title>
-</head>
-<body>
-	Let's shoot some boats <%=session[:player].name%>
+<title>Shoot Boats Page</title>
+	Let's shoot some boats <%=@player.name%>
 	<table>
-		<% session[:player].board.grid.each_slice(10) do |slice|%>
+		<% @opponent.board.grid.each_slice(10) do |slice|%>
 			<tr>
 			<% slice.each do |key, v| %>
 				<td>
@@ -17,11 +12,8 @@
 				<% else %>
 					<%= v.status %>
 				<% end %>
-				</td>
-			<%end%>
-			</tr>
-		<%end%> 
-	</table>
-
-</body>
-</html>
+			</td>
+		<%end%>
+		</tr>
+	<%end%> 
+</table>
