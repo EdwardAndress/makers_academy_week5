@@ -50,20 +50,7 @@ class Battleships < Sinatra::Base
      erb :waiting_to_start
     end
   end
-  # post '/hello' do
   
-  # 	erb :name
-  # end
-
-  # get '/new_game' do
-  #   erb :new_game
-  # end
-
-  # post '/hello' do
-
- 
-  # end
-
   get '/place_boats' do 
     @player = GAME.return(session[:player])
     erb :place_boats

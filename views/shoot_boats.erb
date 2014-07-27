@@ -1,5 +1,7 @@
 <title>Shoot Boats Page</title>
 	Let's shoot some boats <%=@player.name%>
+
+	<%=@opponent.name%>'s board:
 	<table>
 		<% @opponent.board.grid.each_slice(10) do |slice|%>
 			<tr>
@@ -12,6 +14,19 @@
 				<% else %>
 					<%= v.status %>
 				<% end %>
+			</td>
+		<%end%>
+		</tr>
+	<%end%> 
+</table>
+
+Your board
+<table>
+		<% @player.board.grid.each_slice(10) do |slice|%>
+			<tr>
+			<% slice.each do |key, v| %>
+				<td>
+					<%= v.status %>
 			</td>
 		<%end%>
 		</tr>
