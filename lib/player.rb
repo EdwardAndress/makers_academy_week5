@@ -12,4 +12,9 @@ class Player
 		opponent_board.grid[at_coordinate].shoot!
 	end
 
+	def return(ship)
+		@ships_to_deploy.find{|ship| ship.class == ship}
+	end
+
+
 end

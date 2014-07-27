@@ -15,7 +15,6 @@ class Battleships < Sinatra::Base
                               :path => '/',
                               :secret => 'your_secret'
 
-  enable :sessions
   GAME = Game.new
 
   get '/' do
@@ -82,7 +81,7 @@ class Battleships < Sinatra::Base
 
   post '/place_boat_part' do
     @player = GAME.return(session[:player])
-    ship = @player.ships_to_deploy.last
+    @ship = @player.ships_to_deploy.last
     orientation = params["orientation"]
     p params["orientation"].inspect
     
@@ -93,7 +92,7 @@ class Battleships < Sinatra::Base
     coordinates ||= []
     already_a_boat = nil
 
-    ship.remaining_hits.times do
+    @ship.remaining_hits.times do
       coordinates << (row + column.to_s)
       orientation == "horizontal" ? column = column.next : row = row.next
     end
@@ -104,7 +103,7 @@ class Battleships < Sinatra::Base
 
     if already_a_boat == false
       coordinates.each do |cell|
-        @player.board.grid[cell].content = ship
+        @player.board.grid[cell].content = @ship
       end
       @player.ships_to_deploy.pop
     end

@@ -3,12 +3,12 @@
 Let's start the game <%=@player.name%>.
  
 You have <%=@player.ships_to_deploy.count%> ships to deploy. 
-<% ship = @player.ships_to_deploy.last %>
+<%=ship = @player.ships_to_deploy.last %>
 Where would you like to deploy <%=ship.class%>?
 
 <form action='/place_boat_part' method="post">
 
-	<input type="hidden" name = "ship" value= "<%= ship %>">
+	<input type="hidden" name = 'ship' value= "<%=ship.class%>">
 
 	<table>
 		<% @player.board.grid.each_slice(10) do |slice|%>
