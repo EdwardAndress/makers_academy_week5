@@ -81,7 +81,8 @@ class Battleships < Sinatra::Base
   end
 
   post '/place_boat_part' do
-    ship = session[:player].ships_to_deploy.last
+    @player = GAME.return(session[:player])
+    ship = @player.ships_to_deploy.last
     orientation = params["orientation"]
     p params["orientation"].inspect
     
@@ -99,15 +100,15 @@ class Battleships < Sinatra::Base
 
     test_if = Coordinates.new(coordinates)
 
-    already_a_boat = coordinates.any?{|co| session[:player].board.grid[co].part_of_ship_here?} if test_if.valid? 
+    already_a_boat = coordinates.any?{|co| @player.board.grid[co].part_of_ship_here?} if test_if.valid? 
 
     if already_a_boat == false
       coordinates.each do |cell|
-        session[:player].board.grid[cell].content = ship
+        @player.board.grid[cell].content = ship
       end
-      session[:player].ships_to_deploy.pop
+      @player.ships_to_deploy.pop
     end
-    if !session[:player].ships_to_deploy.empty?
+    if !@player.ships_to_deploy.empty?
       erb :place_boats
     else
       erb :shoot_boats

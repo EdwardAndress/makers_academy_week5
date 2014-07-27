@@ -1,9 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Place Boats Page</title>
-</head>
-<body>
+<title>Place Boats Page</title>
 
 Let's start the game <%=@player.name%>.
  
@@ -17,37 +12,24 @@ Where would you like to deploy <%=ship.class%>?
 
 	<table>
 		<% @player.board.grid.each_slice(10) do |slice|%>
-				<tr>
-
-		<% slice.each do |key, v| %>
-			
+			<tr>
+			<% slice.each do |key, v| %>
 				<td>
-					<% if v.content.class == Water %>
-						<input type="submit" name = "cell_key" value = "<%= key %>">
-					
-					<% else %>
-						<%= v.content.class %>
-					<% end %>
+				<% if v.content.class == Water %>
+					<input type="submit" name = "cell_key" value = "<%= key %>">
+				<% else %>
+					<%= v.content.class %>
+				<% end %>
 				</td>
-			</form>
+					</form>
+				<%end%> 
+			</tr>
 		<%end%> 
-				</tr>
-
-		<%end%> 
-
-
 	</table>
 
 	Please choose the direction you would like to deploy <%=ship.class%>.
 	<select name='orientation'>
 		<option value="horizontal">Horizontal</option>
 		<option value="vertical">Vertical</option>
-
-	</select>
-
-	
+	</select>	
 </form>
-
-
-</body>
-</html>
