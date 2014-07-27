@@ -95,7 +95,7 @@ class Battleships < Sinatra::Base
       coordinates.each do |cell|
         @player.board.grid[cell].content = @ship
       end
-      @player.ships_to_deploy.pop
+      @player.floating_ships << @player.ships_to_deploy.pop
     end
     if @player.ships_to_deploy.empty?
       redirect to ('/wait_for_opponent_to_place_boats')
@@ -119,6 +119,7 @@ class Battleships < Sinatra::Base
    get '/shoot_boats' do 
     @player = GAME.return(session[:player])
     @opponent = GAME.return_opponent(session[:player])
+    redirect to ('/end_of_game') if @player.floating_ships.empty?
     erb :shoot_boats
   end
 
@@ -127,9 +128,9 @@ class Battleships < Sinatra::Base
     @opponent = GAME.return_opponent(session[:player])
     cell_key = params["cell_key"]
     @opponent.board.grid[cell_key].shoot!
+    @opponent.check_for_sunken_ships
     @player.take_turn
-    puts @player.turn_counter
-    puts @opponent.turn_counter
+    redirect to ('/end_of_game') if @opponent.floating_ships.empty?
     redirect to ('/wait_for_opponent_to_shoot')
   end
 
@@ -141,6 +142,12 @@ class Battleships < Sinatra::Base
     else
       erb :wait_for_opponent_to_shoot
     end
+  end
+
+  get '/end_of_game' do
+    @player = GAME.return(session[:player])
+    @opponent = GAME.return_opponent(session[:player])
+    erb :end_of_game
   end
 
   # start the server if ruby file executed directly
