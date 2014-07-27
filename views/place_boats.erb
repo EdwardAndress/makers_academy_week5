@@ -5,9 +5,10 @@
 </head>
 <body>
 
-Let's start the game <%=session[:player].name%>
-You have <%=session[:player].ships_to_deploy.count%> ships to deploy. 
-<% ship = session[:player].ships_to_deploy.last %>
+Let's start the game <%=@player.name%>.
+ 
+You have <%=@player.ships_to_deploy.count%> ships to deploy. 
+<% ship = @player.ships_to_deploy.last %>
 Where would you like to deploy <%=ship.class%>?
 
 <form action='/place_boat_part' method="post">
@@ -15,7 +16,7 @@ Where would you like to deploy <%=ship.class%>?
 	<input type="hidden" name = "ship" value= "<%= ship %>">
 
 	<table>
-		<% session[:player].board.grid.each_slice(10) do |slice|%>
+		<% @player.board.grid.each_slice(10) do |slice|%>
 				<tr>
 
 		<% slice.each do |key, v| %>
@@ -46,7 +47,6 @@ Where would you like to deploy <%=ship.class%>?
 
 	
 </form>
-	 
 
 
 </body>

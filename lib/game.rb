@@ -22,6 +22,10 @@ class Game
 		@players = []
 	end
 
+	def return(player_name)
+		@players.find{|player| player.name == player_name}
+	end
+
 
 	
 

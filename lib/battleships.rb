@@ -11,15 +11,15 @@ require './lib/game.rb'
 class Battleships < Sinatra::Base
 	set :views, settings.root + '/../views/'
 
-  use Rack::Session::Cookie, :key => 'rack.session',
-                           :path => '/',
-                           :secret => 'your_secret'
+  use Rack::Session::Cookie,  :key => 'rack.session',
+                              :path => '/',
+                              :secret => 'your_secret'
 
   enable :sessions
   GAME = Game.new
 
   get '/' do
-    puts session[:player1]
+    puts session[:player]
     puts GAME.players
   	erb :index
   end
@@ -29,10 +29,14 @@ class Battleships < Sinatra::Base
   end
 
   post '/name' do 
-    session[:player1]=params[:name]
+    session[:player]=params[:name]
     board = Board.new
-    GAME.add Player.new(name: session[:player1], board: board)
-    redirect to('/waiting_to_start')
+    GAME.add Player.new(name: session[:player], board: board)
+    if GAME.start?
+      redirect to ('/place_boats')
+    else
+      erb :waiting_to_start
+    end
   end
 
   get '/restart' do 
@@ -41,10 +45,10 @@ class Battleships < Sinatra::Base
   end
 
   get '/waiting_to_start' do 
-      if GAME.start?
-      "Lets go!"
+    if GAME.start?
+      redirect to ('/place_boats')
     else
-     "Lets wait for another player to join."
+     erb :waiting_to_start
     end
   end
   # post '/hello' do
@@ -62,6 +66,7 @@ class Battleships < Sinatra::Base
   # end
 
   get '/place_boats' do 
+    @player = GAME.return(session[:player])
     erb :place_boats
   end
 
