@@ -3,6 +3,10 @@ Battleships-Web-App
 
 This is web application for battleships, built during week 5 of Makers Academy, using Sinatra, Ruby and Capybara. The aim was to implement a two-player game without using a database, which was carried out using a global variable for game and session cookies.
 
+A working version of the game can be found here:
+http://fathomless-river-3017.herokuapp.com/
+ 
+
 ###Specification
 
 + Create a game of battleships on the web which two players can play against each other in seperate browsers.
