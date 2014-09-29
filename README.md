@@ -5,8 +5,9 @@
  * Convert the terminal-based version of Battleships (Makers Academy Week 4 task) into an online version that can be played by two people using two separate browsers.
 
 ####Skills / lessons learnt:
- * Web development
- * Front end design
+ * Handling HTTP requests
+ * Persistence of instance variables using sessions
+ * Passing data using params
 
 ####Technologies used:
  * Ruby
