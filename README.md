@@ -15,3 +15,20 @@
  * Sinatra
  * CSS
  * HTML5
+ * Git
+ 
+####Set it up:
+```sh
+$ git clone https://github.com/EdwardAndress/makers_academy_week5.git
+```
+####Test it:
+```sh
+$ cd makers_academy_week5
+$ rspec
+```
+
+####Run it:
+```sh
+$ cd makers_academy_week5
+$ rackup
+```
