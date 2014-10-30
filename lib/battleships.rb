@@ -28,7 +28,7 @@ class Battleships < Sinatra::Base
   end
 
   post '/name' do 
-    session[:player]=params[:name]
+    session[:player] = params[:name]
     board = Board.new
     GAME.add Player.new(name: session[:player], board: board)
     if GAME.start?
