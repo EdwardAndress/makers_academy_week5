@@ -1,4 +1,4 @@
-###Makers Academy Week 5: Battleships Online
+###[Makers Academy] Week 5: Battleships Online
 -----------------------------------------
 
 ####Specification:
@@ -32,3 +32,4 @@ $ rspec
 $ cd makers_academy_week5
 $ rackup
 ```
+[Makers Academy]: http://makersacademy.com
