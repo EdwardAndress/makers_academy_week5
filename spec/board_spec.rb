@@ -15,7 +15,7 @@ describe Board do
 		it 'has some content in each cell' do
 			board = Board.new
 			board.grid.values.each do |cell|
-				expect(cell.content).to eq :water
+				expect(cell.content.class).to eq Water
 			end
 		end
 	end
@@ -36,23 +36,4 @@ describe Board do
 		end
 	end
 
-	context 'can display a representation of the grid' do
-		it 'displays an empty grid' do
-			allow(STDOUT).to receive(:puts)
-			water = double :water, class: Water
-			board = Board.new(content: water)
-			expect(board.render_display).to eq [
-                        [" ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
-                        [" ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
-                        [" ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
-                        [" ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
-                        [" ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
-                        [" ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
-                        [" ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
-                        [" ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
-                        [" ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
-                        [" ", " ", " ", " ", " ", " ", " ", " ", " ", " "]
-                      ]
-		end
-	end
 end

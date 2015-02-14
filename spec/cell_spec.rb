@@ -4,8 +4,8 @@ describe Cell do
 
 	let(:water)           { double :water,  class: Water }
 	let(:ship)            { double :ship, class: Ship    }
-	let(:cell_with_water) { Cell.new(water)              }
-	let(:cell_with_ship)  { Cell.new(ship)               }
+	let(:cell_with_water) { Cell.new(water, "A", "1")              }
+	let(:cell_with_ship)  { Cell.new(ship, "A", "2")               }
 
 	it 'has some content' do
 		expect(cell_with_water.content).to eq water
@@ -32,12 +32,8 @@ describe Cell do
 			allow(Ship).to receive(:superclass).and_return(Ship)
 		end
 
-		it 'returns " " if water here and not shot at' do
-			expect(cell_with_water.status).to eq ' '
-		end
-
-		it 'returns "S" if ship here' do
-			expect(cell_with_ship.status).to eq 'S'
+		it 'returns "~" if water here and not shot at' do
+			expect(cell_with_water.status).to eq '~'
 		end
 
 		it 'returns "O" if water here and shot at' do
